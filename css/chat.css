@@ -1,10 +1,21 @@
-.chat-screen {
+.header-wrapper {
+    background-color: white;
+    padding: 5px 0px;
+    position: fixed;
+    top: 0px;
+    width: 100vw;
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.chats-body {
     background-image: url("../image/chatBg.png");
-    min-height: 100vh;
+    min-height: 1000vh;
 }
 
 .chats-body {
     padding: 0;
+    padding-top: 100px;
 }
 
 .chats-body .header,
@@ -12,26 +23,78 @@
     padding: 0px 20px;
 }
 
-.chat__write {
+.chat__write-container {
     position: fixed;
-    bottom: 50px;
-    width: 80%;
+    bottom:0px;
     display: flex;
-    background-color: #fcfcfc;
-    padding: 5px 20px;
-    border-radius: 40px;
     margin: 0 auto;
     left: 0;
     right: 0;
-    box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
     justify-content: space-between;
     align-items: center;
 }
+@keyframes float {
+    0%{
+        transform: translateY(-100px);
+        box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0,0,0,0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.25);
+    }
+    50%{
+        transform: translateY(-104px);
+        box-shadow: 0 30px 60px -60px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0,0,0,0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.25);
+    }
+    100%{
+        transform: translateY(-100px);
+        box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0,0,0,0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.25);
+    }
+}
+.chat__write {
+    margin: 0 auto;
+    bottom: 0px;
+    width: 100%;
+    border-radius: 0;
+    padding: 20px 60px;
+    display: flex;
+    border: none;
+    font-size: 14px;
+    transition: width 0.5s ease-in-out, border-radius 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
 
+.chat__write:focus {
+    outline: none;
+    width: 80%;
+    margin-left: 50px;
+    transform: translateY(-100px);
+    border-radius: 40px;
+    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0,0,0,0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.25);
+    animation: float 3s ease-in-out infinite forwards;
+}
+
+.chat__write:focus ~ .chat__icon {
+    opacity:0;
+}
+
+.chat__icon-left {
+    position: absolute;
+}
+
+.chat__icon-right {
+    position: absolute;
+    right: 10px;
+    display: flex;
+}
+
+.chat__icon {
+    display: flex;
+    font-size: 18px;
+    transition: opacity 0.3s ease-in-out;
+}
 .chat__write i {
     font-size: 22px;
 }
 
+.chat__write-icon{
+    margin: 10px;
+}
 .chat__write-column:nth-child(2) {
     width: 80%;
 }
@@ -43,9 +106,6 @@
     font-size: 14px;
 }
 
-.chat__write-column input:focus {
-    outline: none;
-}
 
 .chat-screen .chat__messages {
     border-top: 1px solid #f7f7f7;
@@ -78,10 +138,19 @@
 
 }
 
+@keyframes spin {
+    from{
+        transform: none;
+    }
+    to{
+        transform: rotateY(1turn);
+    }
+}
 .incoming-message img{
     width: 30px;
     border-radius: 15px;
     margin-right: 20px;
+    animation: spin 1s linear infinite;
 }
 
 .incoming-message {
@@ -115,4 +184,36 @@
 .sent-message .message__bubble {
     border-bottom-right-radius: 0px;
     background-image: linear-gradient(to left, #83a4d4,#b6fbff)
+}
+
+@keyframes incomingAni {
+    from{
+        opacity: 0;
+        transform: translateX(-200px);
+    }
+    to{
+        opacity: 1;
+        transform: none;
+
+    }
+}
+
+.incoming-message {
+    animation: incomingAni 0.5s ease-out forwards;
+}
+
+@keyframes sentAni {
+    from{
+        opacity: 0;
+        transform: translateX(200px);
+    }
+    to{
+        opacity: 1;
+        transform: none;
+
+    }
+}
+
+.sent-message {
+    animation: sentAni 0.5s ease-out forwards;
 }
